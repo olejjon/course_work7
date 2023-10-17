@@ -13,10 +13,10 @@ TELEGRAM_TOKEN = os.getenv('TOKEN_TELEGRAM_BOT')
 def habit_scheduler() -> None:
     '''check time / day for habit and send notification to user'''
     current_time = datetime.now()
-    for habit in Habit.object.filter(is_pleasant=False):
+    for habit in Habit.objects.filter(is_pleasant=False):
         print(habit)
         # DAILY HABIT
-        if habit.frequency == "DAYLI":
+        if habit.frequency == "DAILY":
             if habit.time.strftime("%H:%M") == current_time.strftime("%H:%M"):
                 print(f'HABBIT INFORMATION: {habit}')
                 chat_id = habit.owner.chat_id
@@ -28,9 +28,11 @@ def habit_scheduler() -> None:
                 else:
                     message = (f"ACTION: {habit.action}\n"
                                f"PLACE: {habit.place}\n"
-                               f"MAKE PLEASANT HABIT: {habit.link_pleasant.action}\n"
+                               f"MAKE PLEASANT HABIT: "
+                               f"{habit.link_pleasant.action}\n"
                                f"DURATION: {habit.duration}")
-                url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage?chat_id={chat_id}&text={message}"
+                url = (f"https://api.telegram.org/bot{TELEGRAM_TOKEN}"
+                       f"/sendMessage?chat_id={chat_id}&text={message}")
                 print(url)
                 requests.get(url)
         # WEEK DAY HABIT

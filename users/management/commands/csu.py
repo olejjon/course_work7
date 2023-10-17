@@ -17,16 +17,3 @@ class Command(BaseCommand):
 
         user.set_password("admin")
         user.save()
-
-        # user = Users.objects.create(
-        #     email="olejjon_123@mail.ru",
-        #     first_name="Oleg",
-        #     last_name="Bolibok",
-        #     telegram_user_name="olejjon123",
-        #     is_superuser=False,
-        #     is_staff=False,
-        #     is_active=True
-        # )
-        #
-        # user.set_password("test")
-        # user.save()

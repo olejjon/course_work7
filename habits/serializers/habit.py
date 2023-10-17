@@ -6,24 +6,22 @@ class HabitSerializer(serializers.ModelSerializer):
     """ serializer for habit and validation"""
 
     def create(self, validated_data):
-        new_habit = Habit.objects.create(**validated_data)
         # check duration
-        if new_habit.duration > 120:
+        if validated_data['duration'] > 120:
             raise serializers.ValidationError("Duration greater than 120 second!")
         # check usual habit
-        if new_habit.is_pleasant is False:
-            if not new_habit.award:
-                if not new_habit.link_pleasant:
+        if validated_data['is_pleasant'] is False:
+            if not validated_data['award']:
+                if not validated_data['link_pleasant']:
                     raise serializers.ValidationError("Usual habit must has award or pleasant habit!")
-            else:
-                if new_habit.link_pleasant:
-                    raise serializers.ValidationError("Usual habit must not has award and pleasant habit simultaneously!")
 
+            new_habit = Habit.objects.create(**validated_data)
             return new_habit
         # check pleasant habit
         else:
-            if new_habit.award:
+            if validated_data['award']:
                 raise serializers.ValidationError("Pleasant habit can not has award!")
+            new_habit = Habit.objects.create(**validated_data)
             return new_habit
 
     class Meta:

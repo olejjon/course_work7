@@ -59,6 +59,7 @@ class HabitDeleteView(generics.DestroyAPIView):
 class ShareHabitListView(generics.ListAPIView):
     queryset = Habit.objects.all()
     serializer_class = HabitSerializer
+    pagination_class = DataPaginator
 
     def get_queryset(self):
         owners = Habit.objects.filter(is_public=True)
