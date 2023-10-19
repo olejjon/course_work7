@@ -27,7 +27,7 @@ class Habit(models.Model):
                               verbose_name="habit action")
     is_pleasant = models.BooleanField(default=False,
                                       verbose_name="flag for pleasant habit")
-    link_pleasant = models.ForeignKey("self", on_delete=models.SET_NULL,
+    link_pleasant = models.ForeignKey("self", on_delete=models.CASCADE,
                                       **NULLABLE)
     frequency = models.CharField(choices=HabitFrequency.choices,
                                  default=HabitFrequency.Daily)
@@ -43,3 +43,4 @@ class Habit(models.Model):
     class Meta:
         verbose_name = "habit"
         verbose_name_plural = 'habits'
+        ordering = ['-id']
