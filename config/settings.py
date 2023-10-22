@@ -94,6 +94,7 @@ DATABASES = {
         'NAME': 'project7',
         'USER': 'postgres',
         'PASSWORD': os.getenv('PASSWORD_POSTGRES'),
+        'HOST': 'db'
     }
 }
 
