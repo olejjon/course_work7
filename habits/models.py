@@ -30,7 +30,7 @@ class Habit(models.Model):
     link_pleasant = models.ForeignKey("self", on_delete=models.CASCADE,
                                       **NULLABLE)
     frequency = models.CharField(choices=HabitFrequency.choices,
-                                 default=HabitFrequency.Daily)
+                                 default=HabitFrequency.Daily, max_length=50)
     award = models.CharField(max_length=100, **NULLABLE,
                              verbose_name="award for habit")
     duration = models.IntegerField(**NULLABLE,
